@@ -47,11 +47,3 @@
 - `> file`, `>> file`, `< file`, `2> errors.txt`, `|`.
 - Пример: `ls /sbin | grep '^d' > dirs.txt`.
 
-## Выполненные команды
-
-Скрипт `lab01_linux.sh` показывает базовую часть: `pwd`, `date`, `whoami`, `id`,
-`groups`, `who`, `uname -a`, `hostname`, `type help`, `ls -ld /sbin`,
-создание файлов, `cat`, `cp`, `mv`, `rm`, `find`, `du`, фон и `wait`.
-
-Интерактивные пункты (виртуальные терминалы, `vi`, `man`, `jobs`, сигналы)
-выполняются вручную на машине и заносятся в отчёт.
