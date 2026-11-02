@@ -54,9 +54,11 @@ make test
 
 ```bash
 printf '66\n2\n' | ./build/lab02_formatted_io
-printf 'AB\033' | ./build/lab03_loops
+printf 'n\nAB\033' | ./build/lab03_loops
 printf '1 1\n' | ./build/lab04_arrays
 printf 'Hello\nworld\n.\n' | ./build/lab05_strings
+printf 'Ivanov Ivan\n3 4 5\nPetrov Petr\n4 4 4\nSidorova Anna\n5 5 5\nSmirnova Olga\n2 3 4\n' |
+    ./build/lab08_structs
 printf '2 10\n' | ./build/lab10_recursion
 printf '2 + 3\nq\n' | ./build/lab11_function_pointers
 printf '3\n1\n2\n4\n' | ./build/lab12_preprocessor
@@ -69,7 +71,8 @@ Lab 7 читает `input.txt` и пишет `output.txt`. Формат: `N M`, 
 cat output.txt
 ```
 
-Lab 1 — интерактивная лаба, скрипт показывает неинтерактивную часть:
+Lab 1 — интерактивная лаба. Скрипт показывает неинтерактивную часть, а в
+`src/lab01_report.md` лежит отчёт с командами и пояснениями для ручных пунктов:
 
 ```bash
 ./src/lab01_linux.sh

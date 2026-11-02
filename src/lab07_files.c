@@ -129,6 +129,14 @@ int main(void) {
     int code = multiply(a, b, c, n, m, k, l, n, l);
     printf("multiply: %d\n", code);
 
+    if (code != 0) {
+        if (code == 1) {
+            printf("error: NULL pointer\n");
+        } else {
+            printf("error: wrong dimensions\n");
+        }
+    }
+
     if (code == 0) {
         FILE *output = fopen("output.txt", "w");
         if (output == NULL) {
@@ -162,6 +170,20 @@ int main(void) {
             }
             printf("closest: row=%d col=%d value=%.2f\n", best_row + 1, best_col + 1,
                    c[best_row][best_col]);
+
+            int null_code = multiply(NULL, b, c, n, m, k, l, n, l);
+            printf("NULL: %d\n", null_code);
+            if (null_code == 1) {
+                printf("error: NULL pointer\n");
+            }
+
+            int size_code = multiply(a, b, c, n, m, k, l, n, l - 1);
+            printf("Wrong size: %d\n", size_code);
+            if (size_code == 2) {
+                printf("error: wrong dimensions\n");
+            }
+
+            printf("Other size: %d\n", multiply(a, b, c, 1, 1, 1, 1, 1, 1));
         }
     }
 

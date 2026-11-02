@@ -10,7 +10,9 @@ def test_lab01_creates_files(tmp_path: Path) -> None:
     assert result.returncode == 0
     assert (tmp_path / "informatics" / "file.txt").read_text(encoding="utf-8") == "hello\nworld\n"
     assert not (tmp_path / "informatics" / "copy.txt").exists()
+    assert not (tmp_path / "informatics" / "moved.txt").exists()
     assert "hello\nworld\n" in result.stdout
+    assert "done" in result.stdout
 
 
 def test_lab01_can_run_twice(tmp_path: Path) -> None:
@@ -18,3 +20,13 @@ def test_lab01_can_run_twice(tmp_path: Path) -> None:
     subprocess.run([str(script)], cwd=tmp_path, check=True, capture_output=True)
     subprocess.run([str(script)], cwd=tmp_path, check=True, capture_output=True)
     assert (tmp_path / "informatics" / "file.txt").read_text(encoding="utf-8") == "hello\nworld\n"
+
+
+def test_lab01_report_exists() -> None:
+    report = ROOT / "src" / "lab01_report.md"
+    assert report.is_file()
+    text = report.read_text(encoding="utf-8")
+    assert "man" in text
+    assert "vi" in text
+    assert "jobs" in text
+    assert "Перенаправление" in text

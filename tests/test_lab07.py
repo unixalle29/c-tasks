@@ -19,6 +19,11 @@ C:
   114.00  140.00
   178.00  220.00
 closest: row=2 col=1 value=114.00
+NULL: 1
+error: NULL pointer
+Wrong size: 2
+error: wrong dimensions
+Other size: 0
 """
 
 VALID_FILE = """   50.00   60.00
@@ -49,7 +54,7 @@ def test_lab07_dimension_mismatch(tmp_path: Path, run_lab) -> None:
     (tmp_path / "input.txt").write_text("2 3\n1 2 3\n4 5 6\n2 2\n1 2\n3 4\n", encoding="utf-8")
     result = run_lab("lab07_files", cwd=tmp_path)
     assert result.returncode == 2
-    assert result.stdout == "multiply: 2\n"
+    assert result.stdout == "multiply: 2\nerror: wrong dimensions\n"
     assert not (tmp_path / "output.txt").exists()
 
 

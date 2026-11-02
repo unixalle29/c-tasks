@@ -5,19 +5,22 @@ def test_lab09_count_initial_student(run_lab) -> None:
 
 
 def test_lab09_add_and_print(run_lab) -> None:
-    result = run_lab("lab09_list", "1\nPetrov\nPetr\n5 5 5\n2\n0\n")
+    result = run_lab("lab09_list", "1\n1\nPetrov\nPetr\n5 5 5\n0\n2\n0\n")
     assert result.returncode == 0
     assert "Petr Petrov: 5.00 5.00 5.00 average 5.00" in result.stdout
 
 
-def test_lab09_add_and_count(run_lab) -> None:
-    result = run_lab("lab09_list", "1\nPetrov\nPetr\n5 5 5\n7\n0\n")
+def test_lab09_input_loop_adds_multiple(run_lab) -> None:
+    result = run_lab(
+        "lab09_list",
+        "1\n1\nPetrov\nPetr\n5 5 5\n1\nAntonov\nAnton\n3 3 3\n0\n7\n0\n",
+    )
     assert result.returncode == 0
-    assert "count: 2" in result.stdout
+    assert "count: 3" in result.stdout
 
 
 def test_lab09_sort_by_surname(run_lab) -> None:
-    result = run_lab("lab09_list", "1\nAntonov\nAnton\n3 3 3\n3\n2\n0\n")
+    result = run_lab("lab09_list", "1\n1\nAntonov\nAnton\n3 3 3\n0\n3\n2\n0\n")
     assert result.returncode == 0
     assert result.stdout.index("Anton Antonov") < result.stdout.index("Ivan Ivanov")
 

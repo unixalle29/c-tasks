@@ -29,6 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
         ),
         pytest.param("0\n", 1, "Count: invalid count\n", id="zero-count"),
         pytest.param("-1\n", 1, "Count: invalid count\n", id="negative-count"),
+        pytest.param("101\n", 1, "Count: invalid count\n", id="too-many-values"),
         pytest.param("3\n0\n", 1, "Count: Value: invalid value\n", id="zero-value"),
         pytest.param("2\n1\n-2\n", 1, "Count: Value: Value: invalid value\n", id="negative-value"),
         pytest.param("abc\n", 1, "Count: invalid count\n", id="bad-count"),

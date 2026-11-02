@@ -44,6 +44,8 @@ void print_matrix(int matrix[3][2], int rows, int cols) {
 
 int main(void) {
     int code = multiply(A, B, C, 3, 4, 4, 2, 3, 2);
+    int null_code;
+    int size_code;
 
     printf("multiply: %d\n", code);
     if (code == 0) {
@@ -51,7 +53,18 @@ int main(void) {
         print_matrix(C, 3, 2);
     }
 
-    printf("NULL: %d\n", multiply(NULL, B, C, 3, 4, 4, 2, 3, 2));
-    printf("Wrong size: %d\n", multiply(A, B, C, 3, 4, 3, 2, 3, 2));
+    null_code = multiply(NULL, B, C, 3, 4, 4, 2, 3, 2);
+    printf("NULL: %d\n", null_code);
+    if (null_code == 1) {
+        printf("error: NULL pointer\n");
+    }
+
+    size_code = multiply(A, B, C, 3, 4, 3, 2, 3, 2);
+    printf("Wrong size: %d\n", size_code);
+    if (size_code == 2) {
+        printf("error: wrong dimensions\n");
+    }
+
+    printf("Other size: %d\n", multiply(A, B, C, 2, 2, 2, 2, 2, 2));
     return 0;
 }

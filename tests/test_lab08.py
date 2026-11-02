@@ -1,6 +1,14 @@
 import pytest
 
-VALID_INPUT = "3 4 5\n4 4 4\n5 5 5\n2 3 4\n"
+VALID_INPUT = """Ivanov Ivan
+3 4 5
+Petrov Petr
+4 4 4
+Sidorova Anna
+5 5 5
+Smirnova Olga
+2 3 4
+"""
 
 
 def test_lab08_valid(run_lab) -> None:
@@ -16,13 +24,22 @@ def test_lab08_valid(run_lab) -> None:
 @pytest.mark.parametrize(
     "stdin",
     [
-        pytest.param("6 4 5\n4 4 4\n5 5 5\n2 3 4\n", id="grade-too-high"),
-        pytest.param("1 4 5\n4 4 4\n5 5 5\n2 3 4\n", id="grade-too-low"),
-        pytest.param("3 4 5\n", id="not-enough-grades"),
+        pytest.param(
+            "Ivanov Ivan\n6 4 5\nPetrov Petr\n4 4 4\n"
+            "Sidorova Anna\n5 5 5\nSmirnova Olga\n2 3 4\n",
+            id="grade-too-high",
+        ),
+        pytest.param(
+            "Ivanov Ivan\n1 4 5\nPetrov Petr\n4 4 4\n"
+            "Sidorova Anna\n5 5 5\nSmirnova Olga\n2 3 4\n",
+            id="grade-too-low",
+        ),
+        pytest.param("Ivanov Ivan\n3 4 5\n", id="not-enough-students"),
+        pytest.param("Nobody Ivan\n3 4 5\n", id="wrong-name"),
         pytest.param("abc\n", id="not-numbers"),
     ],
 )
 def test_lab08_invalid(run_lab, stdin: str) -> None:
     result = run_lab("lab08_structs", stdin)
     assert result.returncode == 1
-    assert "invalid grades" in result.stdout
+    assert "invalid student data" in result.stdout

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define CSIZE 4
 
@@ -13,8 +14,20 @@ struct student {
     float average;
 };
 
-int input_grades(struct student *student) {
-    printf("Grades for %s %s: ", student->name.first_name, student->name.surname);
+int input_student(struct student *student) {
+    char surname[32];
+    char first_name[32];
+
+    printf("Student (surname name): ");
+    if (scanf("%31s %31s", surname, first_name) != 2) {
+        return 0;
+    }
+    if (strcmp(surname, student->name.surname) != 0 ||
+        strcmp(first_name, student->name.first_name) != 0) {
+        return 0;
+    }
+
+    printf("Grades: ");
     for (int index = 0; index < 3; index++) {
         if (scanf("%f", &student->grade[index]) != 1) {
             return 0;
@@ -57,8 +70,8 @@ int main(void) {
     };
 
     for (int index = 0; index < CSIZE; index++) {
-        if (!input_grades(&students[index])) {
-            printf("invalid grades\n");
+        if (!input_student(&students[index])) {
+            printf("invalid student data\n");
             return 1;
         }
         compute_average(&students[index]);

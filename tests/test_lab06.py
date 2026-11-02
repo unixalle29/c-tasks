@@ -5,7 +5,10 @@ EXPECTED = (
     " 114 140\n"
     " 178 220\n"
     "NULL: 1\n"
+    "error: NULL pointer\n"
     "Wrong size: 2\n"
+    "error: wrong dimensions\n"
+    "Other size: 0\n"
 )
 
 

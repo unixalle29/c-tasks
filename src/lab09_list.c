@@ -59,6 +59,23 @@ void append_student(struct student **head, struct student *student) {
     current->next = student;
 }
 
+void input_students(struct student **head) {
+    int again;
+
+    while (1) {
+        printf("Add student? (1 yes, 0 no): ");
+        if (scanf("%d", &again) != 1 || again == 0) {
+            break;
+        }
+        struct student *student = create_student();
+        if (student == NULL) {
+            printf("memory error\n");
+            break;
+        }
+        append_student(head, student);
+    }
+}
+
 void print_student(const struct student *student) {
     printf("%s %s: %.2f %.2f %.2f average %.2f\n", student->name.first_name,
            student->name.surname, student->grade[0], student->grade[1], student->grade[2],
@@ -186,12 +203,7 @@ int main(void) {
             break;
         }
         if (choice == 1) {
-            struct student *student = create_student();
-            if (student == NULL) {
-                printf("memory error\n");
-                break;
-            }
-            append_student(&head, student);
+            input_students(&head);
         } else if (choice == 2) {
             print_list(head);
         } else if (choice == 3) {
