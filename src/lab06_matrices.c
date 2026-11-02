@@ -1,32 +1,57 @@
 #include <stdio.h>
 
-int main(void) {
-    int a[3][4] = {
-        {1, 2, 3, 4},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12},
-    };
-    int b[4][2] = {
-        {1, 2},
-        {3, 4},
-        {5, 6},
-        {7, 8},
-    };
-    int c[3][2] = {0};
+int A[3][4] = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12},
+};
 
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 2; j++) {
-            for (int k = 0; k < 4; k++) {
-                c[i][j] += a[i][k] * b[k][j];
+int B[4][2] = {
+    {1, 2},
+    {3, 4},
+    {5, 6},
+    {7, 8},
+};
+
+int C[3][2];
+
+int multiply(int a[3][4], int b[4][2], int c[3][2], int n, int m, int k, int l, int p, int q) {
+    if (a == NULL || b == NULL || c == NULL) {
+        return 1;
+    }
+    if (m != k || n != p || l != q) {
+        return 2;
+    }
+    for (int row = 0; row < n; row++) {
+        for (int column = 0; column < l; column++) {
+            c[row][column] = 0;
+            for (int index = 0; index < m; index++) {
+                c[row][column] += a[row][index] * b[index][column];
             }
         }
     }
+    return 0;
+}
 
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 2; j++) {
-            printf("%4d", c[i][j]);
+void print_matrix(int matrix[3][2], int rows, int cols) {
+    for (int row = 0; row < rows; row++) {
+        for (int column = 0; column < cols; column++) {
+            printf("%4d", matrix[row][column]);
         }
         printf("\n");
     }
+}
+
+int main(void) {
+    int code = multiply(A, B, C, 3, 4, 4, 2, 3, 2);
+
+    printf("multiply: %d\n", code);
+    if (code == 0) {
+        printf("C:\n");
+        print_matrix(C, 3, 2);
+    }
+
+    printf("NULL: %d\n", multiply(NULL, B, C, 3, 4, 4, 2, 3, 2));
+    printf("Wrong size: %d\n", multiply(A, B, C, 3, 4, 3, 2, 3, 2));
     return 0;
 }

@@ -4,11 +4,28 @@ import pytest
 @pytest.mark.parametrize(
     ("stdin", "stdout"),
     [
-        pytest.param("hello\n", "Text: Reverse: olleh\n", id="basic"),
-        pytest.param("\n", "Text: Reverse: \n", id="empty"),
-        pytest.param("a\n", "Text: Reverse: a\n", id="one-char"),
-        pytest.param("abc", "Text: Reverse: cba\n", id="no-newline"),
-        pytest.param("12345\n", "Text: Reverse: 54321\n", id="digits"),
+        pytest.param(
+            "Hello\nworld\n.\n",
+            "Enter words, finish with a period:\nSentence: Hello world\n",
+            id="two-words",
+        ),
+        pytest.param(
+            "One line.\n",
+            "Enter words, finish with a period:\nSentence: One line\n",
+            id="period-in-line",
+        ),
+        pytest.param(".\n", "Enter words, finish with a period:\nSentence: \n", id="empty"),
+        pytest.param(
+            "Hello\nworld",
+            "Enter words, finish with a period:\nSentence: Hello world\n",
+            id="eof-without-period",
+        ),
+        pytest.param(
+            "Hello. ignore this\n",
+            "Enter words, finish with a period:\nSentence: Hello\n",
+            id="ignore-after-period",
+        ),
+        pytest.param("", "Enter words, finish with a period:\nSentence: \n", id="no-input"),
     ],
 )
 def test_lab05(stdin: str, stdout: str, run_lab) -> None:

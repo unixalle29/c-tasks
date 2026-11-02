@@ -4,13 +4,13 @@ import pytest
 @pytest.mark.parametrize(
     ("stdin", "returncode", "stdout"),
     [
-        pytest.param("5\n3 1 4 1 5\n", 0, "N: min = 1\nmax = 5\nsum = 14\n", id="basic"),
-        pytest.param("1\n-7\n", 0, "N: min = -7\nmax = -7\nsum = -7\n", id="single-negative"),
-        pytest.param("3\n0 0 0\n", 0, "N: min = 0\nmax = 0\nsum = 0\n", id="zeros"),
-        pytest.param("0\n", 1, "N: wrong N\n", id="zero-count"),
-        pytest.param("101\n", 1, "N: wrong N\n", id="too-many"),
-        pytest.param("abc\n", 1, "N: wrong N\n", id="bad-count"),
-        pytest.param("2\n1\nx\n", 1, "N: wrong number\n", id="bad-value"),
+        pytest.param("1 1\n", 0, "Enter day and month: Switch: 364\nArray: 364\n", id="january-1"),
+        pytest.param("31 12\n", 0, "Enter day and month: Switch: 0\nArray: 0\n", id="december-31"),
+        pytest.param("28 2\n", 0, "Enter day and month: Switch: 306\nArray: 306\n", id="february-28"),
+        pytest.param("29 2\n", 1, "Enter day and month: invalid date\n", id="february-29"),
+        pytest.param("0 1\n", 1, "Enter day and month: invalid date\n", id="zero-day"),
+        pytest.param("1 13\n", 1, "Enter day and month: invalid date\n", id="bad-month"),
+        pytest.param("abc\n", 1, "Enter day and month: invalid date\n", id="not-numbers"),
     ],
 )
 def test_lab04(stdin: str, returncode: int, stdout: str, run_lab) -> None:

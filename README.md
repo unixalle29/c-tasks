@@ -9,7 +9,7 @@ make        # всё соберётся в build/
 make clean  # удалить build/
 ```
 
-Нужны `gcc`, `make` и [uv](https://docs.astral.sh/uv/).
+Нужны `gcc`, `make` и [uv](https://docs.astral.sh/uv/) для тестов.
 
 ## Тесты
 
@@ -20,29 +20,30 @@ uv run pytest
 make test
 ```
 
-Тесты на Python/pytest лежат в `tests/`, сами собирают C-программы и проверяют вывод и коды возврата. CI: `.github/workflows/ci.yml`.
+Тесты лежат в `tests/`, собирают программы и проверяют вывод и коды возврата.
 
 ## Лабы
 
-| # | Файл | Что делает |
+| # | Файл | Задание |
 |---|---|---|
-| 1 | `lab01_linux.sh` | команды Linux |
-| 2 | `lab02_formatted_io.c` | ASCII-символ, звёздочки, масса шара |
-| 3 | `lab03_loops.c` | символы до ESC и их ASCII-коды |
-| 4 | `lab04_arrays.c` | min, max и сумма массива |
-| 5 | `lab05_strings.c` | переворот строки через `malloc`/`free` |
-| 6 | `lab06_matrices.c` | умножение матриц 3×4 и 4×2 |
-| 7 | `lab07_files.c` | чтение `input.txt`, запись `output.txt` |
-| 8 | `lab08_structs.c` | структуры и сортировка студентов |
-| 9 | `lab09_list.c` | односвязный список |
-| 10 | `lab10_recursion.c` | факториал и сумма цифр |
-| 11 | `lab11_function_pointers.c` | калькулятор на указателях на функции |
-| 12 | `lab12_preprocessor.c` | макросы и `#ifdef DEBUG` |
+| 1 | `lab01_linux.sh` | команды Linux: файлы, редиректы, фон/`wait` |
+| 2 | `lab02_formatted_io.c` | ввод кода → ASCII-символ; объём воды → молекулы; звёздочки |
+| 3 | `lab03_loops.c` | коды символов в oct/dec/hex до ESC |
+| 4 | `lab04_arrays.c` | дни до Нового года двумя способами: `switch` и массив |
+| 5 | `lab05_strings.c` | строки до точки → предложение, `malloc`/`fgets`/`free` |
+| 6 | `lab06_matrices.c` | A 3×4 × B 4×2, функция с указателями и кодами 0/1/2 |
+| 7 | `lab07_files.c` | матрицы из файла, умножение, вывод в файл, ближайший к среднему |
+| 8 | `lab08_structs.c` | `student` с 3 оценками, средние и средние по предметам |
+| 9 | `lab09_list.c` | связный список студентов: add/sort/delete/insert/search/count |
+| 10 | `lab10_recursion.c` | рекурсивная степень `double` в `int` |
+| 11 | `lab11_function_pointers.c` | калькулятор на указателях на функции, выход по `q` |
+| 12 | `lab12_preprocessor.c` | заголовок `harmonic.h`, макрос гармонического среднего |
 
 ## Запуск
 
 ```bash
 ./build/lab02_formatted_io
+./build/lab04_arrays
 ./build/lab06_matrices
 ./build/lab08_structs
 ./build/lab09_list
@@ -52,30 +53,24 @@ make test
 С вводом:
 
 ```bash
+printf '66\n2\n' | ./build/lab02_formatted_io
 printf 'AB\033' | ./build/lab03_loops
-printf '5\n3 1 4 1 5\n' | ./build/lab04_arrays
-printf 'hello\n' | ./build/lab05_strings
-printf '5\n' | ./build/lab10_recursion
-printf '8 / 2\n' | ./build/lab11_function_pointers
+printf '1 1\n' | ./build/lab04_arrays
+printf 'Hello\nworld\n.\n' | ./build/lab05_strings
+printf '2 10\n' | ./build/lab10_recursion
+printf '2 + 3\nq\n' | ./build/lab11_function_pointers
+printf '3\n1\n2\n4\n' | ./build/lab12_preprocessor
 ```
 
-Лаба 7 читает `input.txt` и пишет `output.txt`. Формат: первая строка — N, вторая — N чисел.
+Lab 7 читает `input.txt` и пишет `output.txt`. Формат: `N M`, матрица A, `K L`, матрица B.
 
 ```bash
 ./build/lab07_files
 cat output.txt
 ```
 
-Лаба 1:
+Lab 1 — интерактивная лаба, скрипт показывает неинтерактивную часть:
 
 ```bash
 ./src/lab01_linux.sh
 ```
-
-Отладка в лабе 12:
-
-```bash
-make clean && make CFLAGS="-std=c11 -Wall -Wextra -DDEBUG"
-./build/lab12_preprocessor
-```
-

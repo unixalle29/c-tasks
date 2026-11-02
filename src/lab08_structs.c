@@ -1,39 +1,72 @@
 #include <stdio.h>
 
-#define COUNT 4
+#define CSIZE 4
 
 struct name {
-    char first[32];
-    char last[32];
+    char surname[32];
+    char first_name[32];
 };
 
 struct student {
     struct name name;
-    int grade;
-    int birth_year;
+    float grade[3];
+    float average;
 };
 
-int main(void) {
-    struct student students[COUNT] = {
-        {{"Ivan", "Ivanov"}, 4, 2005},
-        {{"Petr", "Petrov"}, 5, 2004},
-        {{"Anna", "Sidorova"}, 3, 2006},
-        {{"Olga", "Smirnova"}, 5, 2005},
-    };
-
-    for (int i = 0; i < COUNT - 1; i++) {
-        for (int j = 0; j < COUNT - 1 - i; j++) {
-            if (students[j].grade < students[j + 1].grade) {
-                struct student temp = students[j];
-                students[j] = students[j + 1];
-                students[j + 1] = temp;
-            }
+int input_grades(struct student *student) {
+    printf("Grades for %s %s: ", student->name.first_name, student->name.surname);
+    for (int index = 0; index < 3; index++) {
+        if (scanf("%f", &student->grade[index]) != 1) {
+            return 0;
+        }
+        if (student->grade[index] < 2 || student->grade[index] > 5) {
+            return 0;
         }
     }
+    return 1;
+}
 
-    for (int i = 0; i < COUNT; i++) {
-        printf("%s %s, grade %d, born %d\n", students[i].name.first, students[i].name.last,
-               students[i].grade, students[i].birth_year);
+void compute_average(struct student *student) {
+    student->average = (student->grade[0] + student->grade[1] + student->grade[2]) / 3.0f;
+}
+
+void print_student(const struct student *student) {
+    printf("%s %s: %.2f %.2f %.2f average %.2f\n", student->name.first_name,
+           student->name.surname, student->grade[0], student->grade[1], student->grade[2],
+           student->average);
+}
+
+void print_class_averages(const struct student students[CSIZE]) {
+    printf("Class averages:");
+    for (int subject = 0; subject < 3; subject++) {
+        float sum = 0;
+        for (int index = 0; index < CSIZE; index++) {
+            sum += students[index].grade[subject];
+        }
+        printf(" %.2f", sum / CSIZE);
     }
+    printf("\n");
+}
+
+int main(void) {
+    struct student students[CSIZE] = {
+        {{"Ivanov", "Ivan"}, {0, 0, 0}, 0},
+        {{"Petrov", "Petr"}, {0, 0, 0}, 0},
+        {{"Sidorova", "Anna"}, {0, 0, 0}, 0},
+        {{"Smirnova", "Olga"}, {0, 0, 0}, 0},
+    };
+
+    for (int index = 0; index < CSIZE; index++) {
+        if (!input_grades(&students[index])) {
+            printf("invalid grades\n");
+            return 1;
+        }
+        compute_average(&students[index]);
+    }
+
+    for (int index = 0; index < CSIZE; index++) {
+        print_student(&students[index]);
+    }
+    print_class_averages(students);
     return 0;
 }

@@ -1,12 +1,15 @@
 #include <stdio.h>
 
 int main(void) {
-    int code;
+    int ch;
 
     printf("Enter text, ESC to stop:\n");
-    while ((code = getchar()) != 27) {
-        printf("%d ", code);
+    while ((ch = getchar()) != 27) {
+        if (ch == '\n') {
+            continue;
+        }
+        printf("%c: oct=%o dec=%d hex=%x\n", ch, ch, ch, ch);
     }
-    printf("\n");
+
     return 0;
 }

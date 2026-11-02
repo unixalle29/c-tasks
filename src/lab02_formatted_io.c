@@ -1,32 +1,29 @@
-#include <math.h>
 #include <stdio.h>
 
-#define PI 3.14159265358979323846
+int main(void) {
+    int code;
+    double volume;
 
-static void print_ascii(int code) {
-    putchar(code);
-}
+    printf("Enter ASCII code: ");
+    if (scanf("%d", &code) != 1) {
+        printf("invalid code\n");
+        return 1;
+    }
+    printf("%c\n", code);
 
-static void print_star_triangle(int rows) {
-    for (int row = 1; row <= rows; row++) {
+    printf("Enter volume in liters: ");
+    if (scanf("%lf", &volume) != 1 || volume < 0) {
+        printf("invalid volume\n");
+        return 1;
+    }
+    printf("molecules = %.2e\n", volume * 1000.0 / 3.0e-23);
+
+    for (int row = 1; row <= 4; row++) {
         for (int star = 0; star < row; star++) {
             putchar('*');
         }
         putchar('\n');
     }
-}
 
-static double sphere_mass(double radius, double density) {
-    double volume = 4.0 / 3.0 * PI * radius * radius * radius;
-    return density * volume;
-}
-
-int main(void) {
-    print_ascii(66);
-    putchar('\n');
-
-    print_star_triangle(4);
-
-    printf("mass = %.6f\n", sphere_mass(2.0, 1000.0));
     return 0;
 }

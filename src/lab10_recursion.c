@@ -1,29 +1,30 @@
 #include <stdio.h>
 
-long long factorial(int n) {
-    if (n <= 1) {
-        return 1;
+double power(double base, int exponent) {
+    if (exponent == 0) {
+        return 1.0;
     }
-    return n * factorial(n - 1);
-}
-
-int digit_sum(int n) {
-    if (n < 10) {
-        return n;
+    if (exponent < 0) {
+        return 1.0 / power(base, -exponent);
     }
-    return n % 10 + digit_sum(n / 10);
+    if (base == 0.0) {
+        return 0.0;
+    }
+    return base * power(base, exponent - 1);
 }
 
 int main(void) {
-    int n;
+    double base;
+    int exponent;
 
-    printf("n: ");
-    if (scanf("%d", &n) != 1 || n < 0 || n > 20) {
-        printf("wrong n\n");
+    printf("Enter base and exponent: ");
+    if (scanf("%lf %d", &base, &exponent) != 2) {
+        printf("invalid input\n");
         return 1;
     }
 
-    printf("factorial = %lld\n", factorial(n));
-    printf("digit sum = %d\n", digit_sum(n));
+    printf("power = %.6f\n", power(base, exponent));
+    printf("0^5 = %.6f\n", power(0.0, 5));
+    printf("5^0 = %.6f\n", power(5.0, 0));
     return 0;
 }
